@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertUser, users, lessonPlans, InsertLessonPlan, chatHistory, InsertChatMessage, generatedImages, InsertGeneratedImage, resources } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -89,4 +89,72 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+export async function createLessonPlan(userId: number, plan: Omit<InsertLessonPlan, 'userId'>) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return await db.insert(lessonPlans).values({ ...plan, userId });
+}
+
+export async function getLessonPlansByUserId(userId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return await db.select().from(lessonPlans).where(eq(lessonPlans.userId, userId));
+}
+
+export async function updateLessonPlan(id: number, updates: Partial<InsertLessonPlan>) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return await db.update(lessonPlans).set(updates).where(eq(lessonPlans.id, id));
+}
+
+export async function deleteLessonPlan(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return await db.delete(lessonPlans).where(eq(lessonPlans.id, id));
+}
+
+export async function saveChatMessage(userId: number, message: Omit<InsertChatMessage, 'userId'>) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return await db.insert(chatHistory).values({ ...message, userId });
+}
+
+export async function getChatHistory(userId: number, limit: number = 50) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return await db.select().from(chatHistory).where(eq(chatHistory.userId, userId)).limit(limit);
+}
+
+export async function saveGeneratedImage(userId: number, image: Omit<InsertGeneratedImage, 'userId'>) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return await db.insert(generatedImages).values({ ...image, userId });
+}
+
+export async function getGeneratedImages(userId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return await db.select().from(generatedImages).where(eq(generatedImages.userId, userId));
+}
+
+export async function getAllResources() {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return await db.select().from(resources);
+}
+
+export async function getResourcesByCategory(category: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  return await db.select().from(resources).where(eq(resources.category, category));
+}
