@@ -37,7 +37,7 @@ export default function Home() {
       icon: Brain,
       title: "Chatbot Assistivo",
       description: "Receba sugestões personalizadas com IA",
-      href: "/lesson-plans",
+      href: "/chat",
     },
     {
       icon: Library,
@@ -89,7 +89,7 @@ export default function Home() {
             {features.map((feature) => {
               const Icon = feature.icon;
               return (
-                <Link key={feature.href} href={feature.href}>
+                <Link key={`${feature.href}-${feature.title}`} href={feature.href}>
                   <Card className="p-6 hover:border-accent transition-colors cursor-pointer h-full">
                     <Icon className="w-12 h-12 text-accent mb-4" />
                     <h3 className="text-xl font-bold mb-2">{feature.title}</h3>

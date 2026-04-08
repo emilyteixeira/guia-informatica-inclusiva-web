@@ -9,6 +9,7 @@ import AssistiveTech from "./pages/AssistiveTech";
 import Curriculum from "./pages/Curriculum";
 import PedagogicalPrinciples from "./pages/PedagogicalPrinciples";
 import LessonPlanGenerator from "./pages/LessonPlanGenerator";
+import Chat from "./pages/Chat";
 import Resources from "./pages/Resources";
 import Navigation from "./components/Navigation";
 
@@ -20,6 +21,7 @@ function Router() {
       <Route path={"/curriculum"} component={Curriculum} />
       <Route path={"/principles"} component={PedagogicalPrinciples} />
       <Route path={"/lesson-plans"} component={LessonPlanGenerator} />
+      <Route path={"/chat"} component={Chat} />
       <Route path={"/resources"} component={Resources} />
       <Route path={"/404"} component={NotFound} />
       <Route component={NotFound} />
