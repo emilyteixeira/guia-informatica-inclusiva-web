@@ -250,8 +250,8 @@ export default function LessonPlanGenerator() {
                 <p className="text-muted">Carregando...</p>
               ) : listQuery.data && listQuery.data.length > 0 ? (
                 <div className="space-y-3">
-                  {listQuery.data.map((plan) => (
-                    <div key={plan.id} className="p-3 bg-muted/20 rounded border border-border">
+                  {listQuery.data.map((plan, index) => (
+                    <div key={`${plan.id}-${index}`} className="p-3 bg-muted/20 rounded border border-border">
                       <h3 className="font-bold text-sm">{plan.title}</h3>
                       <p className="text-xs text-muted mt-1">{plan.theme}</p>
                     </div>

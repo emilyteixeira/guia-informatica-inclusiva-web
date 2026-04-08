@@ -61,3 +61,8 @@
 - [ ] Otimizações de performance
 - [ ] Criar checkpoint final
 - [ ] Deploy permanente
+
+
+## Bugs Encontrados e Corrigidos
+
+- [x] Erro de chaves duplicadas em listas React (LessonPlanGenerator.tsx - import duplicado + chaves de lista melhoradas)
